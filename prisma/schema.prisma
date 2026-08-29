@@ -1,0 +1,119 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Investigation {
+  id           String    @id @default(uuid())
+  address      String
+  status       String
+  createdAt    DateTime  @default(now())
+  completedAt  DateTime?
+  clusters     Cluster[]
+  attributions Attribution[]
+}
+
+model Address {
+  id          String   @id @default(uuid())
+  address     String   @unique
+  addressType String?
+  firstSeen   DateTime?
+  lastSeen    DateTime?
+  inputs      TransactionInput[]
+  outputs     TransactionOutput[]
+  clusters    ClusterAddress[]
+  vasps       VaspAddress[]
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  txid        String   @unique
+  blockHeight Int?
+  timestamp   DateTime
+  inputs      TransactionInput[]
+  outputs     TransactionOutput[]
+}
+
+model TransactionInput {
+  id                  String      @id @default(uuid())
+  transactionId       String
+  transaction         Transaction @relation(fields: [transactionId], references: [id])
+  addressId           String?
+  address             Address?    @relation(fields: [addressId], references: [id])
+  value               BigInt
+  previousTxid        String
+  previousOutputIndex Int
+}
+
+model TransactionOutput {
+  id             String      @id @default(uuid())
+  transactionId  String
+  transaction    Transaction @relation(fields: [transactionId], references: [id])
+  addressId      String?
+  address        Address?    @relation(fields: [addressId], references: [id])
+  value          BigInt
+  outputIndex    Int
+  spent          Boolean     @default(false)
+}
+
+model Cluster {
+  id              String   @id @default(uuid())
+  investigationId String
+  investigation   Investigation @relation(fields: [investigationId], references: [id])
+  confidence      String
+  addresses       ClusterAddress[]
+}
+
+model ClusterAddress {
+  clusterId String
+  addressId String
+  cluster   Cluster @relation(fields: [clusterId], references: [id])
+  address   Address @relation(fields: [addressId], references: [id])
+  @@id([clusterId, addressId])
+}
+
+model Vasp {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  addresses   VaspAddress[]
+  attributions Attribution[]
+}
+
+model VaspAddress {
+  id              String   @id @default(uuid())
+  vaspId          String
+  vasp            Vasp     @relation(fields: [vaspId], references: [id])
+  addressId       String
+  address         Address  @relation(fields: [addressId], references: [id])
+  source          String
+  sourceReference String?
+  confidence      String
+  lastVerified    DateTime?
+}
+
+model Attribution {
+  id              String   @id @default(uuid())
+  investigationId String
+  investigation   Investigation @relation(fields: [investigationId], references: [id])
+  vaspId          String
+  vasp            Vasp     @relation(fields: [vaspId], references: [id])
+  score           Int
+  hopDistance     Int
+  createdAt       DateTime @default(now())
+  evidence        Evidence[]
+}
+
+model Evidence {
+  id              String   @id @default(uuid())
+  attributionId   String
+  attribution     Attribution @relation(fields: [attributionId], references: [id])
+  type            String
+  description     String
+  weight          Float
+  sourceReference String?
+}

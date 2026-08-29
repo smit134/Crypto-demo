@@ -1,0 +1,21 @@
+{
+  "name": "vasptrace-backend",
+  "version": "1.0.0",
+  "description": "VASPTrace Data Pipeline and API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test:api": "ts-node src/scripts/test-api.ts",
+    "seed": "ts-node src/scripts/seed-vasps.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "axios": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "prisma": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Binance",
+    "description": "Centralized Cryptocurrency Exchange",
+    "addresses": [
+      {
+        "address": "1NDyJtNTjmwk5xPNhjgAMu4HDHigtobu1s",
+        "source": "Public Knowledge / WalletExplorer",
+        "sourceReference": "https://www.walletexplorer.com/wallet/Binance.com",
+        "confidence": "High",
+        "lastVerified": "2026-08-29T00:00:00.000Z"
+      },
+      {
+        "address": "152f1muMCNa7goXYhYAQC61hxEgGacmncB",
+        "source": "Public Knowledge / WalletExplorer",
+        "sourceReference": "https://www.walletexplorer.com/wallet/Binance.com",
+        "confidence": "High",
+        "lastVerified": "2026-08-29T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "Kraken",
+    "description": "Centralized Cryptocurrency Exchange",
+    "addresses": [
+      {
+        "address": "34z8R5Rz36yqG2Hj4xZgQ9N4K5a5M9c9Wv",
+        "source": "Public Attribution Dataset",
+        "sourceReference": "https://bitinfocharts.com/bitcoin/address/34z8R5Rz36yqG2Hj4xZgQ9N4K5a5M9c9Wv",
+        "confidence": "High",
+        "lastVerified": "2026-08-29T00:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "name": "Silk Road (Seized)",
+    "description": "Historical darknet market, seized by US DOJ",
+    "addresses": [
+      {
+        "address": "1FfmbHfnpaZjKFvyi1okTjJJusN455paPH",
+        "source": "US Department of Justice / Public Record",
+        "sourceReference": "https://www.justice.gov",
+        "confidence": "Highest",
+        "lastVerified": "2026-08-29T00:00:00.000Z"
+      }
+    ]
+  }
+]
